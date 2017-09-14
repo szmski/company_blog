@@ -2,8 +2,6 @@ from django.db import models
 from django.utils import timezone
 from django.core.urlresolvers import reverse
 
-# Create your models here.
-
 
 class Post(models.Model):
     '''
@@ -19,30 +17,24 @@ class Post(models.Model):
     published_date = models.DateTimeField(blank=True, null=True)
 
     def publish(self):
-        '''
-        Publish new post
-        '''
+        # Publish new post
         self.published_date = timezone.now()
         self.save()
 
 
     def approve_comments(self):
-        '''
-        Approve post
-        '''
+        # Approve post
         return self.comments.filter(approved_comment=True)
 
     def get_absolute_url(self):
-        '''
-        Getting absolute url 
-        '''
+        # Getting absolute url (going back to which site onclick)
         return reverse('post_detail', kwargs={'pk':pk})
 
     def __str__(self):
         self.title
 
 
-class Comments(models.Model):
+class Comment(models.Model):
     '''
     Comments model where our post can have comments from diffrent authors -
     even guests.
@@ -55,13 +47,12 @@ class Comments(models.Model):
     approved_comment = models.BooleanField(default=False)
 
     def approve(self):
-        '''
-        Approve comment written by user
-        '''
+        # Approve comment written by user
         self.approved_comment = True
         self.save()
 
     def get_absolute_url(self):
+        # Getting absolute url (going back to which site onclick)
         return reverse('post_list')
 
     def __str__(self):

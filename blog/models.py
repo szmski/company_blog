@@ -28,7 +28,7 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         # Getting absolute url (going back to which site onclick)
-        return reverse('post_detail', kwargs={'pk':pk})
+        return reverse('post_detail', kwargs={'pk':self.pk})
 
     def __str__(self):
         self.title

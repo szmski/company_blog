@@ -11,11 +11,11 @@ class PostForm(forms.ModelForm):
         # Adding classes attributes to form models
         widgets = {
             'title': forms.TextInput(attrs = {'class':'textinputclass'}),
-            'text': forms.TextArea(attrs = {'class':'editable medium-editor-textarea postcontent'})
+            'text': forms.Textarea(attrs = {'class':'editable medium-editor-textarea postcontent'})
         }
 
 
-class CommentForm(forms.ModelForm)
+class CommentForm(forms.ModelForm):
 
     class Meta():
         model = Comment
@@ -24,5 +24,5 @@ class CommentForm(forms.ModelForm)
         # Adding classes attributes to form models
         widgets = {
             'author': forms.TextInput(attrs = {'class':'textinputclass'}),
-            'text': forms.TextArea(attrs = {'class':'editable medium-editor-textarea'})
+            'text': forms.Textarea(attrs = {'class':'editable medium-editor-textarea'})
         }

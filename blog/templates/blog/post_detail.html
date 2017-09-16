@@ -6,7 +6,7 @@
             {{ post.published_date }}
         </div>
     {% else %}
-        <a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}">Publish</a>
+        <a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}">Opublikuj</a>
     {% endif %}
 
     <p class="postcontent">{{ post.text|safe|linebreaksbr }}</p>
@@ -21,26 +21,22 @@
     {% endif %}
 
     <hr>
-    <a class="btn btn-primary btn-comment" href="{% url 'add_comment_to_post' pk=post.pk %}"></a>
+    <a class="btn btn-primary btn-comment" href="{% url 'add_comment_to_post' pk=post.pk %}">Nowy</a>
     <div class="container">
-        {% for comment in post_comments.all %}
+        {% for comment in post.comments.all %}
             <br>
             {% if user.is_authenticated or comment.approved_comment %}
                 {{ comment.created_date }}
                 {% if not comment.approved_comment %}
-                    <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </a>
-                    <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}">
-                        <span class="glyphicon glyphicon-ok"></span>
-                    </a>
-                {% endif%}
+                    <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                    <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
+                {% endif %}
 
                 <p>{{ comment.text|safe|linebreaks }}</p>
-                <p>Posted by: {{ comment.author }}</p>
+                <p>Dodany przez: <strong>{{ comment.author }}</strong></p>
             {% endif %}
         {% empty %}
-            <p>No comments</p>
+          <p>Brak komentarzy.</p>
         {% endfor %}
     </div>
 {% endblock %}
